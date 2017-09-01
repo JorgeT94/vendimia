@@ -1,0 +1,124 @@
+<article class="table-responsive">
+	<table class="table table-hover table-sm table-sortable" *ngIf="data">
+		<thead>
+			<tr class="btn-primary disabled" [ngClass]="[(design ? design.encabezado.fondo : '' ), (design ? design.encabezado.color : '' )]">
+				<ng-template ngFor let-i="index" let-column [ngForOf]="columns">
+					<th *ngIf="(isTabletSize() && column.showTablet) || (isMobileSize() && column.showMobile) ||
+								(!isTabletSize() && !isMobileSize())" [class]="selectedClass(column.variable)" (click)="changeSorting(column.variable)">
+						{{ column.display }}
+					</th>
+				</ng-template>
+				<th id="optionEspecial" *ngIf="(optionEspecial?.btn && !isMobileSize()) || (optionEspecial?.obj && !isMobileSize() && !isTabletSize())">{{optionEspecial.encabezado}}</th>
+				<th id="options" *ngIf="!options || (options && (options.details||options.edit||options.delete))">
+					Opciones
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let object of data | ordenar: convertSorting() | paginate: {itemsPerPage: 8, currentPage:currentPage}" [ngClass]="{'table-danger':  calculateTimer(object)<8  && calculateTimer(object)>0,
+							'table-warning': calculateTimer(object)<16 && calculateTimer(object)>7,
+							'table-dark':    calculateTimer(object)<1}">
+				<ng-template ngFor let-j="index" let-column [ngForOf]="columns">
+					<th scope="row" *ngIf="j<1 && !sort.index">{{object[column.variable]}}</th>
+					<th scope="row" *ngIf="j<1 && sort.index">{{object.index}}</th>
+					<td *ngIf="j>0 && ((isTabletSize() && column.showTablet) || 
+								(isMobileSize() && column.showMobile) || (!isTabletSize() && !isMobileSize()))">
+						<div *ngIf="!column.isDate && !column.isPrice && !column.isRFC">{{object[column.variable]}}</div>
+						<div *ngIf="column.isDate">
+							{{object[column.variable] | date:'dd-MMMM-yyyy'}}
+						</div>
+						<div *ngIf="column.isPrice">
+							{{object[column.variable] | currency:'MXN':true}}
+						</div>
+						<div *ngIf="column.isRFC">
+							{{object[column.variable] | uppercase}}
+						</div>
+					</td>
+				</ng-template>
+				<!-- placement="top" [ngbTooltip]="!isMobileSize()&&!isTabletSize() ? 'cuentas bancarias':false" -->
+				<!--OPCIONES ESPECIALES  -->
+				<td *ngIf="optionEspecial?.btn && !isMobileSize()">
+					<a [class]="classBtn(optionEspecial)" [routerLink]="" (click)="detailsEspecial(object)">
+						<i [class]="classIcon(optionEspecial)" aria-hidden="true"></i>						
+						<span>{{optionEspecial.tituloBtn}}</span>
+					</a>
+				</td>
+				<td *ngIf="optionEspecial?.obj && !isMobileSize() && !isTabletSize()">
+					<span *ngIf="!isMobileSize() && !isTabletSize() && object[optionEspecial.variableE] ">
+						<span class="fa-stack">
+							<i class="fa fa-circle fa-stack-2x certificate"></i>
+							<i class="fa fa-check fa-stack-1x check"></i>
+						</span>
+					</span>
+					<span *ngIf="!isMobileSize() && !isTabletSize() && !object[optionEspecial.variableE]">
+						<span class="fa-stack">
+							<i class="fa fa-circle fa-stack-2x certificate-false"></i>
+							<i class="fa fa-times fa-stack-1x times"></i>
+						</span>
+					</span>
+				</td>
+				<!--/OPCIONES ESPECIALES  -->
+				<td *ngIf="options; else optionsDefault">
+					<a *ngIf="options.details" class="btn btn-info btn-sm" [routerLink]="" (click)="details(object)" [ngbTooltip]="!isMobileSize()&&!isTabletSize() ? 'Ver Más' : false">
+						<i class="fa fa-eye" [ngClass]="{'fa-sm': isMobileSize()}" aria-hidden="true"></i>
+						<span *ngIf="permiso==='lectura' && !isMobileSize() && !isTabletSize()"> Ver Más</span>
+					</a>
+					<a *ngIf="options.edit && permiso==='todos'" class="btn btn-success btn-sm" placement="top" [routerLink]="" (click)="edit(object)"
+					 [ngbTooltip]="!isMobileSize()&&!isTabletSize() ? 'Modificar' : false">
+						<i class="fa fa-pencil" aria-hidden="true"></i>
+					</a>
+					<a *ngIf="options.delete && permiso==='todos' && (object?.estatus==='A' || object?.estatus==='Activo' || object?.estatus==='P' || object?.estatus==='Pendiente' || !object.estatus)"
+					 class="btn btn-danger btn-sm" placement="top" [routerLink]="" (click)="delete(object)" [ngbTooltip]="!isMobileSize()&&!isTabletSize() ? 'Eliminar' : false">
+						<i class="fa fa-trash" aria-hidden="true"></i>
+					</a>
+					<a *ngIf="options.unlock && permiso==='todos' && object?.estatus==='B' || object?.estatus==='Bloqueado'" class="btn btn-secondary btn-sm"
+					 placement="top" [routerLink]="" (click)="unlock(object)" [ngbTooltip]="!isMobileSize()&&!isTabletSize() ? 'Desbloquear' : false">
+						<i class="fa fa-unlock" aria-hidden="true"></i>
+					</a>
+					<a *ngIf="options.enable && permiso==='todos' && object?.estatus==='I' || object?.estatus==='Inactivo'" class="btn btn-success btn-sm"
+					 placement="top" [routerLink]="" (click)="enable(object)" [ngbTooltip]="!isMobileSize()&&!isTabletSize() ? 'Habilitar' : false">
+						<i class="fa fa-exchange" aria-hidden="true"></i>
+					</a>
+				</td>
+				<ng-template #optionsDefault>
+					<td>
+						<a class="btn btn-info btn-sm" placement="top" [routerLink]="" (click)="details(object)" [ngbTooltip]="!isMobileSize()&&!isTabletSize() ? 'Ver Más' : false">
+							<i class="fa fa-eye" aria-hidden="true"></i>
+							<span *ngIf="permiso==='lectura' && !isMobileSize() && !isTabletSize()"> Ver Más</span>
+						</a>
+						<a *ngIf="permiso==='todos'" class="btn btn-success btn-sm" placement="top" [routerLink]="" (click)="edit(object)" [ngbTooltip]="!isMobileSize()&&!isTabletSize() ? 'Modificar' : false">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+						</a>
+						<a *ngIf="permiso==='todos'" class="btn btn-danger btn-sm" placement="top" [routerLink]="" (click)="delete(object)" [ngbTooltip]="!isMobileSize()&&!isTabletSize() ? 'Eliminar' : false">
+							<i class="fa fa-trash" aria-hidden="true"></i>
+						</a>
+						<a *ngIf="permiso==='todos'" class="btn btn-secondary btn-sm" placement="top" [routerLink]="" (click)="unlock(object)" [ngbTooltip]="!isMobileSize()&&!isTabletSize() ? 'Desbloquear' : false">
+							<i class="fa fa-unlock" aria-hidden="true"></i>
+						</a>
+						<a *ngIf="permiso==='todos'" class="btn btn-success btn-sm" placement="top" [routerLink]="" (click)="enable(object)" [ngbTooltip]="!isMobileSize()&&!isTabletSize() ? 'Habilitar' : false">
+							<i class="fa fa-exchange" aria-hidden="true"></i>
+						</a>
+					</td>
+				</ng-template>
+			</tr>
+			<tr *ngIf="(data===undefined || data.length == 0)">
+				<td class="center-text" [attr.colspan]="columns.length+1">
+					<i>No se encontraron resultados...</i>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</article>
+<!-- <tr *ngIf="data.length>8">
+	<td class="right-text">
+		<i>Existen {{data.length}} registros</i>
+	</td>
+</tr> -->
+<article class="d-flex justify-content-center" *ngIf="data.length > pageSize">
+	<ngb-pagination [collectionSize]="data.length" [(page)]="currentPage" [pageSize]="pageSize" [maxSize]="maxSize" [rotate]="true"
+	 	[ellipses]="false" [boundaryLinks]="(data.length / pageSize) > maxSize" (pageChange)="currentPage = $event" size="sm" *ngIf="!Buscador">
+	</ngb-pagination>
+	<ngb-pagination [collectionSize]="data.length" page="1" [pageSize]="pageSize" [maxSize]="maxSize" [rotate]="true"
+	 	[ellipses]="false" [boundaryLinks]="(data.length / pageSize) > maxSize" (pageChange)="currentPage = $event" size="sm" *ngIf="Buscador">
+	</ngb-pagination> 
+</article>

@@ -1,0 +1,46 @@
+#options:after{ content: none; }
+#options:hover{ cursor: default; }
+
+.btn-primary:active{ 
+	background-color: #0275d8;
+	border-color: #0275d8; 
+}
+
+.check{color:white;}
+.certificate{color:#0275d8;}
+.certificate-false{color:#FF5441}
+
+.table-sortable > thead > tr > th {
+	vertical-align: top;
+	/*cursor: pointer;*/
+	/*pointer-events: none;*/
+	/*position: relative;*/
+	/*background-image: none;*/
+}
+
+.table-sortable > thead > tr > th:hover { cursor: pointer; }
+/*.table-sortable > thead > tr > th:active { 
+	background-color: #025aa5;
+	border-color: #01549b;
+}*/
+ 
+.table-sortable > thead > tr > th:after,
+.table-sortable > thead > tr > th.sort-false:after,
+.table-sortable > thead > tr > th.sort-true:after {
+	font-family: FontAwesome;
+	padding-left: 5px;
+}
+
+.table-sortable > thead > tr > th:after {
+	content: "\f0dc";
+	color: #ddd;
+}
+.table-sortable > thead > tr > th.sort-false:after {
+	content: "\f0de";
+	color: #767676;
+}
+.table-sortable > thead > tr > th.sort-true:after {
+	content: "\f0dd";
+	color: #767676;
+}
+.times{color:white;}
