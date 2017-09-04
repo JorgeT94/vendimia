@@ -6,8 +6,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { CatalogoComponent } from './catalogo/catalogo.component';
 import { VentasService } from './ventas.service';
+import { ClientesService } from '../clientes/clientes.service';
 import { CustomPipesModule } from '../custom-pipes/custom-pipes.module';
-import { TableSortableModule } from '../table-sortable/table-sortable.module';
 // import { EmitterService } from './custom-services/emitter.service';
 import { VENTAS_ROUTING } from './ventas.routes';
 import { SweetAlert } from '../custom-class/sweet-alert';
@@ -21,12 +21,12 @@ import { FormularioComponent } from './formulario/formulario.component';
 		NgbModule.forRoot(),
 		VENTAS_ROUTING,
 		HttpModule,
-		CustomPipesModule,
-		TableSortableModule,
+		CustomPipesModule
 	],
   providers: [
     SweetAlert,
-    VentasService
+    VentasService,
+    ClientesService
   ],
   declarations: [CatalogoComponent, FormularioComponent]
 })
