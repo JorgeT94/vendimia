@@ -7,8 +7,10 @@ import { RouterModule } from '@angular/router';
 import { CatalogoComponent } from './catalogo/catalogo.component';
 import { VentasService } from './ventas.service';
 import { ClientesService } from '../clientes/clientes.service';
+import { ArticulosService } from '../articulos/articulos.service';
+import { ConfiguracionService } from '../configuracion/configuracion.service';
 import { CustomPipesModule } from '../custom-pipes/custom-pipes.module';
-// import { EmitterService } from './custom-services/emitter.service';
+import { CanDeactivateForm } from './can-deactivate';
 import { VENTAS_ROUTING } from './ventas.routes';
 import { SweetAlert } from '../custom-class/sweet-alert';
 import { FormularioComponent } from './formulario/formulario.component';
@@ -26,7 +28,10 @@ import { FormularioComponent } from './formulario/formulario.component';
   providers: [
     SweetAlert,
     VentasService,
-    ClientesService
+    ClientesService,
+    ArticulosService,
+    CanDeactivateForm,
+    ConfiguracionService
   ],
   declarations: [CatalogoComponent, FormularioComponent]
 })

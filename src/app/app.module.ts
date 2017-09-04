@@ -5,7 +5,6 @@ import { HttpModule,JsonpModule,BrowserXhr } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { CustomPipesModule } from './custom-pipes/custom-pipes.module';
-import { TableSortableModule } from './table-sortable/table-sortable.module';
 import { NgProgressModule } from 'ngx-progressbar';
 import { EmitterService } from './custom-services/emitter.service';
 import { NgProgressBrowserXhr } from 'ngx-progressbar';
@@ -26,7 +25,6 @@ import { SweetAlert } from './custom-class/sweet-alert';
 		JsonpModule,
 		HttpModule,
 		CustomPipesModule,
-		TableSortableModule,
 		NgbModule.forRoot(),
 		APP_ROUTING,
 		NgProgressModule

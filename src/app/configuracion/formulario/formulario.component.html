@@ -1,0 +1,53 @@
+<section class="contenedor mt-4">
+  <form [formGroup]="form" (submit)="onSubmit()" novalidate>
+    <div class="card bg-primary mb-3" style="max-width: 100%;">
+      <div class="card-header text-white">Configuración General</div>
+      <div class="card-body bg-light inline-block">
+        <section class="container">
+          <section class="clearfix" [ngClass]="{'row':!isMobileSize(),'col':windowWidth>=769}">
+      			<label class="col-form-label text-right" [ngClass]="{'col-sm-6':isMobileSize(), 'col-sm-4': !isMobileSize()}">
+      				<strong>Tasa Financiamento:</strong>
+      			</label>
+      			<article [ngClass]="{'col-sm-12': isMobileSize(),'col-sm-8': !isMobileSize()}">
+              <input type="text" class="form-control" formControlName="tasa">
+              <!-- ,
+              'has-danger': formErrors.codProveedor,
+              'has-success': !formErrors.codProveedor
+      				-->
+      			</article>
+      		</section>
+          <section class="clearfix mt-3" [ngClass]="{'row':!isMobileSize(),'col':windowWidth>=769}">
+      			<label class="col-form-label text-right" [ngClass]="{'col-sm-6':isMobileSize(), 'col-sm-4': !isMobileSize()}">
+      				<strong>% Enganche:</strong>
+      			</label>
+      			<article [ngClass]="{'col-sm-12': isMobileSize(),'col-sm-8': !isMobileSize()}">
+              <input type="text" class="form-control" formControlName="enganche">
+              <!-- ,
+              'has-danger': formErrors.codProveedor,
+              'has-success': !formErrors.codProveedor
+      				-->
+      			</article>
+      		</section>
+          <section class="clearfix mt-3" [ngClass]="{'row':!isMobileSize(),'col':windowWidth>=769}">
+      			<label class="col-form-label text-right" [ngClass]="{'col-sm-6':isMobileSize(), 'col-sm-4': !isMobileSize()}">
+      				<strong>Plazo Máximo:</strong>
+      			</label>
+      			<article [ngClass]="{'col-sm-12': isMobileSize(),'col-sm-8': !isMobileSize()}">
+              <input type="text" class="form-control" formControlName="plazo">
+              <!-- ,
+              'has-danger': formErrors.codProveedor,
+              'has-success': !formErrors.codProveedor
+      				-->
+      			</article>
+      		</section>
+        </section>
+      </div>
+    </div>
+    <div class="text-right">
+      <button type="button" class="btn btn-success mr-3" [routerLink]="['../']">Cancelar</button>
+      <input type="submit" role="button" class="btn btn-success" value="Guardar">
+    </div>
+  </form>
+</section>
+
+<br><br>
