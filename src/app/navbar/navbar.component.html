@@ -1,12 +1,23 @@
-<div id="overlay" (click)="openNav()"></div>
+<section id="titulo" class="d-flex flex-row-reverse">
+  <i class="fa fa-tag fa-3x"></i>
+  <span id="vendimia">La Vendimia</span>
+</section>
 <section class="pos-f-t">
-  <nav class="navbar navbar-toggleable navbar-toggleable-md fixed-top navbar-dark bg-dark">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item" routerLinkActive="active">
-        <a (click)="openNav()" role="button" id="barrasMenuBox" class="nav-link" style="cursor:pointer;">
-          Inicio
-        </a>
-      </li>
-    </ul>
+  <nav class="navbar navbar-toggleable navbar-toggleable-md navbar-dark bg-dark">
+    <div ngbDropdown>
+      <a role="button" id="dropdown" class="nav-link" style="cursor:pointer;" ngbDropdownToggle routerLinkActive="active">
+        Inicio
+      </a>
+      <div ngbDropdownMenu aria-labelledby="dropdown">
+        <button type="button" class="dropdown-item" [routerLink]="['/ventas']">Ventas</button>
+        <div class="dropdown-divider"></div>
+        <button type="button" class="dropdown-item">Clientes</button>
+        <button type="button" class="dropdown-item">Artículos</button>
+        <button type="button" class="dropdown-item">Configuración</button>
+      </div>
+    </div>
+    <div class="ml-auto text-white">
+      Fecha: {{ date | date:'shortDate' }}
+    </div>
   </nav>
 </section>

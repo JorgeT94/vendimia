@@ -5,6 +5,7 @@ import { ReversePipe } from './reverse.pipe';
 import { IteraObjectPipe } from './itera-object.pipe';
 import { OrderByPipe, OrderColoniaPipe, OrderDescriptionPipe, OrderNamePipe } from './order-by/orderby';
 import { CapitalizadoPipe, FormatoFechasPipe, TelefonoPipe, TitleCasePipe, IsNan } from './change-format/change-format';
+import { KeysPipe } from './keys.pipe';
 
 @NgModule({
 	imports: [CommonModule],
@@ -20,7 +21,8 @@ import { CapitalizadoPipe, FormatoFechasPipe, TelefonoPipe, TitleCasePipe, IsNan
 		FormatoFechasPipe,
 		TelefonoPipe,
 		TitleCasePipe,
-		IsNan
+		IsNan,
+		KeysPipe
 	],
 	declarations: [
 		CustomPipesComponent,
@@ -34,7 +36,8 @@ import { CapitalizadoPipe, FormatoFechasPipe, TelefonoPipe, TitleCasePipe, IsNan
 		FormatoFechasPipe,
 		TelefonoPipe,
 		TitleCasePipe,
-		IsNan
+		IsNan,
+		KeysPipe
 	]
 })
 export class CustomPipesModule { }

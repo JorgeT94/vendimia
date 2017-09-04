@@ -9,10 +9,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 const ROUTES: Routes = [
 	// { path: 'home', component: HomeComponent, canActivate: [CanActivateAuth] },
-	// { path: 'login', loadChildren: 'app/login/login.module#LoginModule'},
+	{ path: 'ventas', loadChildren: 'app/ventas/ventas.module#VentasModule'},
 	// { path: 'bancos', loadChildren: 'app/bancos/bancos.module#BancosModule', canActivate: [CanActivateAuth] },
 	// { path: ':user/cambiarcontrasena', component: NewPasswordComponent, canActivate: [CanActivateAuth], canDeactivate: [CanDeactivateForm] },
-	{ path: '**', redirectTo: 'home' }
+	{ path: '**', redirectTo: '' }
 ];
 
 export const APP_ROUTING: ModuleWithProviders = RouterModule.forRoot(ROUTES, { useHash: true });

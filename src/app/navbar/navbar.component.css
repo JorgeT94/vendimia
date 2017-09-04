@@ -1,0 +1,26 @@
+i {
+  color: #F57F40;
+}
+
+#dropdown {
+  color: white;
+}
+
+#dropdown:active {
+  width: 110%;
+}
+
+#dropdown::after {
+  display: none;
+}
+
+#titulo {
+  height: 40px;
+}
+
+#vendimia {
+  color: green;
+  font-size: 1.6em;
+  font-weight: bold;
+  padding: 5px 10px 5px 10px;
+}
