@@ -12,7 +12,7 @@ export class VentasService {
 
 	constructor(private _http: Http) {}
 
-  public getVentas2() {
+  public getVentas() {
 		return this._http.get(API).map(response=>response.json() as Venta[]);
 	}
 }

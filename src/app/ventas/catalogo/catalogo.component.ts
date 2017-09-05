@@ -18,7 +18,7 @@ export class CatalogoComponent implements OnInit {
   constructor(private ventasService: VentasService) {}
 
   ngOnInit() {
-    this.ventasService.getVentas2().subscribe(ventas=>this.ventas = ventas);
+    this.ventasService.getVentas().subscribe(ventas=>this.ventas = ventas);
     this.windowSize = new WindowSize();
 		this.windowSize.width.subscribe(size=>this.windowWidth=size);
   }
