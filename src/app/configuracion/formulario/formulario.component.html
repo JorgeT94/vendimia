@@ -5,39 +5,27 @@
       <div class="card-body bg-light inline-block">
         <section class="container">
           <section class="clearfix" [ngClass]="{'row':!isMobileSize(),'col':windowWidth>=769}">
-      			<label class="col-form-label text-right" [ngClass]="{'col-sm-6':isMobileSize(), 'col-sm-4': !isMobileSize()}">
+      			<label class="col-form-label text-right text-success" [ngClass]="{'col-sm-6':isMobileSize(), 'col-sm-4': !isMobileSize()}">
       				<strong>Tasa Financiamento:</strong>
       			</label>
       			<article [ngClass]="{'col-sm-12': isMobileSize(),'col-sm-8': !isMobileSize()}">
               <input type="text" class="form-control" formControlName="tasa">
-              <!-- ,
-              'has-danger': formErrors.codProveedor,
-              'has-success': !formErrors.codProveedor
-      				-->
       			</article>
       		</section>
           <section class="clearfix mt-3" [ngClass]="{'row':!isMobileSize(),'col':windowWidth>=769}">
-      			<label class="col-form-label text-right" [ngClass]="{'col-sm-6':isMobileSize(), 'col-sm-4': !isMobileSize()}">
+      			<label class="col-form-label text-right text-success" [ngClass]="{'col-sm-6':isMobileSize(), 'col-sm-4': !isMobileSize()}">
       				<strong>% Enganche:</strong>
       			</label>
       			<article [ngClass]="{'col-sm-12': isMobileSize(),'col-sm-8': !isMobileSize()}">
               <input type="text" class="form-control" formControlName="enganche">
-              <!-- ,
-              'has-danger': formErrors.codProveedor,
-              'has-success': !formErrors.codProveedor
-      				-->
       			</article>
       		</section>
           <section class="clearfix mt-3" [ngClass]="{'row':!isMobileSize(),'col':windowWidth>=769}">
-      			<label class="col-form-label text-right" [ngClass]="{'col-sm-6':isMobileSize(), 'col-sm-4': !isMobileSize()}">
+      			<label class="col-form-label text-right text-success" [ngClass]="{'col-sm-6':isMobileSize(), 'col-sm-4': !isMobileSize()}">
       				<strong>Plazo Máximo:</strong>
       			</label>
       			<article [ngClass]="{'col-sm-12': isMobileSize(),'col-sm-8': !isMobileSize()}">
               <input type="text" class="form-control" formControlName="plazo">
-              <!-- ,
-              'has-danger': formErrors.codProveedor,
-              'has-success': !formErrors.codProveedor
-      				-->
       			</article>
       		</section>
         </section>

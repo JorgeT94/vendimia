@@ -10,27 +10,18 @@ import { WindowSize } from '../../custom-class/custom-class';
   styleUrls: ['./catalogo.component.css']
 })
 export class CatalogoComponent implements OnInit {
-  // private ventas: Observable<Venta[]>;
   private ventas: Venta[];
 
   public windowSize: WindowSize;
   public windowWidth: number;
 
-  constructor(private ventasService: VentasService) {
-    // this.ventas = this.ventasService.ventas;
-  }
+  constructor(private ventasService: VentasService) {}
 
   ngOnInit() {
-    this.ventasService.getVentas2().subscribe(
-      ventas=>{
-        console.log(ventas)
-        this.ventas = ventas
-      }
-    );
+    this.ventasService.getVentas2().subscribe(ventas=>this.ventas = ventas);
     this.windowSize = new WindowSize();
 		this.windowSize.width.subscribe(size=>this.windowWidth=size);
   }
-
 
 	isMobileSize(): boolean {
 		return this.windowWidth <= 425 ? true : false;

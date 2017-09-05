@@ -83,12 +83,20 @@ export class FormularioComponent implements OnInit {
     }
   }
 
+  calcularImporteTotal(): void {
+    let num: number = 0;
+    for(let a of this.addedArticles) {
+      num += this.calcularPrecio(a) * (a.cantidad ? a.cantidad : 1);
+    }
+    this.importeTotal = num;
+  }
+
   calcularPrecio(articulo: Articulo): number {
     return articulo.precio * (1+(this.configs.tasa*this.configs.plazo)/100);
   }
 
   calcularImporte(articulo: Articulo): number {
-    this.importeTotal = this.calcularPrecio(articulo) * (articulo.cantidad ? articulo.cantidad : 1);
+    this.calcularImporteTotal();
     return this.calcularPrecio(articulo) * (articulo.cantidad ? articulo.cantidad : 1);
   }
 

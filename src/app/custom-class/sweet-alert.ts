@@ -61,7 +61,6 @@ export class SweetAlert {
 	}
 
 	confirmMsg(titulo: string, msg: string, confirmBtnTxt: string = 'Aceptar', cancelBtnTxt: string = 'Cancelar', tipo: string = null): Promise<number>{
-		console.log('msg: ',msg);
 		return Promise.resolve(swal({
 			title: titulo,
 			text: msg,
@@ -77,7 +76,6 @@ export class SweetAlert {
 			response=>response === 'dismiss' ? false : true,
 			dismiss=>dismiss === 'close' ? -1 : 0
 		).then(response=>{
-			console.log(response);
 			return Promise.resolve(response);
 		}));
 	}
@@ -135,35 +133,4 @@ export class SweetAlert {
 			}
 		}));
 	}
-
-
-
-
-/*
-multiplesInputMsg({
-	title: 'Multiple inputs',
-	html:
-	  '<input id="swal-input1" class="swal2-input">' +
-	  '<input id="swal-input2" class="swal2-input">',
-	preConfirm: function () {
-	  return new Promise(function (resolve) {
-		resolve([
-		  $('#swal-input1').val(),
-		  $('#swal-input2').val()
-		])
-	  })
-	},
-	onOpen: function () {
-	  $('#swal-input1').focus()
-	}
-  }).then(function (result) {
-	swal(JSON.stringify(result))
-  }).catch(swal.noop)
- */
-
-
-
-
-
-
 }

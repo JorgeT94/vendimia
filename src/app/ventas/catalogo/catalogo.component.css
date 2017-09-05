@@ -2,11 +2,9 @@
 
 .derecha { text-align: right; }
 
-/*.............................................................. Buscador*/
 .fa.fa-search { color: black; }
 
 .focused { color:  lightskyblue !important; }
-/*..............................................................*/
 
 .izquierda { float: left; }
 
@@ -30,7 +28,6 @@ button[type=button] { border-radius:50px; }
 
 input { margin-right: 60px; }
 
-/* Para que el input del buscador del catalogo se haga un poco mas grande cuando se selecciona */
 input[type=text] {
 	width: 20px;
 	-webkit-transition: width .40s ease-in-out;
@@ -39,7 +36,7 @@ input[type=text] {
 }
 
 input[type=text]:focus { width: 170px; }
-/*................................................................ Smartphone's */
+
 @media screen and (max-width: 425px) {
 	.buscar { margin-bottom: 5px; }
 	.btnNuevo { display: none; }
@@ -49,7 +46,6 @@ input[type=text]:focus { width: 170px; }
 	input[type=text] { font-size: 0.7em; }
 	input[type=text]:focus { width: 100px; }
 
-/*....................................... Buscador*/
 	.left-addon input { padding-left: 20px; }
 	.inner-addon .fa {
 		padding: 10px 7px;
