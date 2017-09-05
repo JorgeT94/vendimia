@@ -189,6 +189,23 @@ export class FormularioComponent implements OnInit {
     }
   }
 
+  reducirStock(articulos): void {
+    for(let key in articulos) {
+      for(let a of this.addedArticles) {
+        if(articulos[key].idArticulo==a.idArticulo){
+          let articulo = new Articulo();
+          articulo.idArticulo = a.idArticulo;
+          articulo.descripcion = a.descripcion;
+          articulo.modelo = a.modelo;
+          articulo.precio = a.precio;
+          articulo.existencia = a.existencia - a.cantidad;
+          this.articulosService.putArticulo(articulo,key).subscribe(value=>console.log(value));
+        }
+      }
+
+    }
+  }
+
   private onSubmit(): void {
     if(this.abono){
       console.log(this.folio);
@@ -205,10 +222,21 @@ export class FormularioComponent implements OnInit {
         this.venta.total = this.calcularTotalAPagar(this.abono);
         this.venta.abono = this.abono;
         this.venta.estatus = 'C';
-        this.ventasService.postVenta(this.venta).subscribe(
-          value=>this._swal.success('¡Bien Hecho!','Tu venta ha sido registrada correctamente.'),
-          error=>{this.submitting=false;console.log(error)},
-          ()=>{this._router.navigateByUrl('ventas')}
+        // this.reducirStock();
+        this.articulosService.getArticulos().subscribe(
+          articulos=>{
+            if(articulos){
+              this.reducirStock(articulos);
+            }
+          },
+          error=>console.log(error),
+          ()=>{
+            this.ventasService.postVenta(this.venta).subscribe(
+              value=>this._swal.success('¡Bien Hecho!','Tu venta ha sido registrada correctamente.'),
+              error=>{this.submitting=false;console.log(error)},
+              ()=>{this._router.navigateByUrl('ventas')}
+            );
+          }
         );
       } else{
         this._swal.error('Los datos ingresados no son correctos, favor de verificar');
