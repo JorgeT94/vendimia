@@ -15,4 +15,12 @@ export class VentasService {
   public getVentas() {
 		return this._http.get(API).map(response=>response.json() as Venta[]);
 	}
+
+	public postVenta(venta: Venta) {
+		let body = JSON.stringify( venta );
+    let headers = new Headers({'Content-Type': 'application/json'});
+		return this._http.post(API, body, { headers }).map(res=>{
+			return res.json();
+		});
+	}
 }

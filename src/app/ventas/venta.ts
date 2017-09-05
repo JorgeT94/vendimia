@@ -5,4 +5,5 @@ export class Venta {
   total: number;
   fecha: Date;
   estatus: string;
+  abono: number;
 }

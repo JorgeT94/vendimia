@@ -67,16 +67,22 @@
       <section *ngIf="nextSection" id="abonosMensuales">
         <article class="table-responsive">
           <table class="table table-hover table-sm">
-            <thead>
-              <th colspan="5" class="text-center"><strong>ABONOS MENSUALES</strong></th>
+            <thead class="bg-secondary">
+              <th colspan="5" class="text-center text-white"><strong>ABONOS MENSUALES</strong></th>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
+              <tr *ngFor="let p of plazos">
+                <td>{{ p }} ABONOS DE</td>
+                <td>{{ calcularTotalAPagar(p) / p | currency:'MXN':true }}</td>
+                <td>TOTAL A PAGAR {{ calcularTotalAPagar(p) | currency:'MXN':true }}</td>
+                <td>SE AHORRA {{ (importeTotal - calcularEnganche() - calcularBonificacion()) - calcularTotalAPagar(p) | currency:'MXN':true }}</td>
+                <td>
+                  <label class="custom-control custom-radio">
+                    <input [(ngModel)]="abono" name="abono" type="radio" class="custom-control-input" [value]="p">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description"></span>
+                  </label>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -87,7 +93,8 @@
 
   <div class="text-right">
     <button type="button" class="btn btn-success mr-3" [routerLink]="['../']">Cancelar</button>
-    <button type="button" class="btn btn-success" (click)="next()">Siguiente</button>
+    <button *ngIf="!nextSection" type="button" class="btn btn-success" (click)="next()">Siguiente</button>
+    <button *ngIf="nextSection" type="button" class="btn btn-success" (click)="onSubmit()">Guardar</button>
   </div>
 </section>
 

@@ -4,7 +4,7 @@ export class SweetAlert {
 
 	constructor() {}
 
-	private static msg(titulo: string, msg: string, timer: number = 0, tipo: string = null, showConfirmButton:boolean=true, allowOutsideClick:boolean=true, allowEscapeKey:boolean=true, allowSpaceKey:boolean=true): void{
+	private static msg(titulo: string, msg: string, timer: number = 0, tipo: string = null, showConfirmButton:boolean=true, allowOutsideClick:boolean=true, allowEscapeKey:boolean=true): void{
 		swal({
 			title: titulo,
 			text: msg,
@@ -12,8 +12,7 @@ export class SweetAlert {
 			type: tipo,
 			showConfirmButton:showConfirmButton,
 			allowOutsideClick:allowOutsideClick,
-			allowEscapeKey:allowEscapeKey,
-			allowSpaceKey:allowSpaceKey
+			allowEscapeKey:allowEscapeKey
 		}).then(
 			function(){},
 			function(dismiss){
@@ -56,8 +55,8 @@ export class SweetAlert {
 		SweetAlert.msg(titulo, msg, timer, 'warning');
 	}
 
-	info(titulo: string, msg: string, timer: number = 0,showConfirmButton?:boolean, AllowOutsideClick?:boolean, allowEscapeKey?:boolean, allowSpaceKey?:boolean): void{
-		SweetAlert.msg(titulo, msg, timer, 'info',showConfirmButton, AllowOutsideClick, allowEscapeKey,allowSpaceKey);
+	info(titulo: string, msg: string, timer: number = 0,showConfirmButton?:boolean, AllowOutsideClick?:boolean, allowEscapeKey?:boolean): void{
+		SweetAlert.msg(titulo, msg, timer, 'info',showConfirmButton, AllowOutsideClick, allowEscapeKey);
 	}
 
 	confirmMsg(titulo: string, msg: string, confirmBtnTxt: string = 'Aceptar', cancelBtnTxt: string = 'Cancelar', tipo: string = null): Promise<number>{

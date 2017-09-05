@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
@@ -30,6 +31,8 @@ export class FormularioComponent implements OnInit {
   private folio: number = 0;
   private importeTotal: number = 0;
   private nextSection: boolean = false;
+  private plazos: number[] = [3, 6, 9, 12];
+  private abono: any;
 
   public submitting: boolean = false;
 
@@ -59,7 +62,9 @@ export class FormularioComponent implements OnInit {
               private clientesService: ClientesService,
               private articulosService: ArticulosService,
               private configService: ConfiguracionService,
-              private _swal: SweetAlert) {
+              private _swal: SweetAlert,
+              private _router: Router) {
+    this.venta = new Venta();
     this.ventasService.getVentas().subscribe(
       ventas=>{
         if(ventas){
@@ -118,6 +123,14 @@ export class FormularioComponent implements OnInit {
     return this.calcularPrecio(articulo) * (articulo.cantidad ? articulo.cantidad : 1);
   }
 
+  private calcularPrecioContado(): number {
+    return (this.importeTotal - this.calcularEnganche() - this.calcularBonificacion()) / (1 + ((this.configs.tasa * this.configs.plazo) / 100)) ;
+  }
+
+  private calcularTotalAPagar(plazo: number): number {
+    return this.calcularPrecioContado() * (1 + (this.configs.tasa * plazo) / 100);
+  }
+
   private addNewArticle(articulo: Articulo): void {
     if(!articulo || !articulo.idArticulo) return;
 
@@ -159,7 +172,6 @@ export class FormularioComponent implements OnInit {
     for(let key in value) {
       keys.push(value[key]);
     }
-    console.log(keys);
     return keys;
   }
 
@@ -171,7 +183,6 @@ export class FormularioComponent implements OnInit {
       }
     }
     if(this.clientsModel && this.clientsModel.codCliente && this.addedArticles.length>0 && conCantidades){
-      this._swal.alert('OH YEAH', 'NEXT!');
       this.nextSection = true;
     } else{
       this._swal.error('Los datos ingresados no son correctos, favor de verificar');
@@ -179,7 +190,32 @@ export class FormularioComponent implements OnInit {
   }
 
   private onSubmit(): void {
-
+    if(this.abono){
+      console.log(this.folio);
+      let conCantidades: boolean = true;
+      for(let a of this.addedArticles){
+        if(a.cantidad < 1){ conCantidades = false }
+      }
+      if(this.clientsModel && this.clientsModel.codCliente && this.addedArticles.length>0 && conCantidades){
+        this.submitting = true;
+        this.venta.idVenta = this.folio;
+        this.venta.codCliente = this.clientsModel.codCliente;
+        this.venta.nombre = `${this.clientsModel.nombre} ${this.clientsModel.apellidoP} ${this.clientsModel.apellidoM}`;
+        this.venta.fecha = new Date();
+        this.venta.total = this.calcularTotalAPagar(this.abono);
+        this.venta.abono = this.abono;
+        this.venta.estatus = 'C';
+        this.ventasService.postVenta(this.venta).subscribe(
+          value=>this._swal.success('¡Bien Hecho!','Tu venta ha sido registrada correctamente.'),
+          error=>{this.submitting=false;console.log(error)},
+          ()=>{this._router.navigateByUrl('ventas')}
+        );
+      } else{
+        this._swal.error('Los datos ingresados no son correctos, favor de verificar');
+      }
+    } else{
+      this._swal.warning('¡ATENCIÓN!', 'Debe seleccionar un plazo para realizar el pago de su compra.');
+    }
   }
 
   public canDeactivate(): Promise<boolean> {

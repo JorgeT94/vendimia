@@ -26,7 +26,6 @@
 					<th>Nombre</th>
 					<th>Total</th>
 					<th>Fecha</th>
-					<th>Estatus</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -35,8 +34,7 @@
 					<td>{{ ventas[v].codCliente }}</td>
 					<td>{{ ventas[v].nombre }}</td>
 					<td>{{ ventas[v].total | currency:'MXN':true }}</td>
-					<td>{{ ventas[v].fecha | date:'shortTime' }}</td>
-					<td>{{ ventas[v].estatus }}</td>
+					<td>{{ ventas[v].fecha | date:'shortDate' }}</td>
 				</tr>
 			</tbody>
 		</table>
