@@ -1,0 +1,50 @@
+<section class="contenedor mt-4">
+  <form [formGroup]="form" (submit)="onSubmit()" novalidate>
+    <div class="card bg-primary mb-3" style="max-width: 100%;">
+      <div class="card-header text-white">Registro de Artículos</div>
+      <div class="card-body bg-light inline-block">
+        <h6 class="card-title text-success text-right">Clave: {{ clave }}</h6>
+        <section class="container">
+          <section class="clearfix" [ngClass]="{'row':!isMobileSize(),'col':windowWidth>=769}">
+      			<label class="col-form-label text-right text-success" [ngClass]="{'col-sm-6':isMobileSize(), 'col-sm-4': !isMobileSize()}">
+      				<strong>Descripción:</strong>
+      			</label>
+      			<article [ngClass]="{'col-sm-12': isMobileSize(),'col-sm-8': !isMobileSize()}">
+              <input type="text" class="form-control" formControlName="descripcion">
+      			</article>
+      		</section>
+          <section class="clearfix mt-3" [ngClass]="{'row':!isMobileSize(),'col':windowWidth>=769}">
+      			<label class="col-form-label text-right text-success" [ngClass]="{'col-sm-6':isMobileSize(), 'col-sm-4': !isMobileSize()}">
+      				<strong>Modelo:</strong>
+      			</label>
+      			<article [ngClass]="{'col-sm-12': isMobileSize(),'col-sm-8': !isMobileSize()}">
+              <input type="text" class="form-control" formControlName="modelo">
+      			</article>
+      		</section>
+          <section class="clearfix mt-3" [ngClass]="{'row':!isMobileSize(),'col':windowWidth>=769}">
+      			<label class="col-form-label text-right text-success" [ngClass]="{'col-sm-6':isMobileSize(), 'col-sm-4': !isMobileSize()}">
+      				<strong>Precio:</strong>
+      			</label>
+      			<article [ngClass]="{'col-sm-12': isMobileSize(),'col-sm-8': !isMobileSize()}">
+              <input type="text" class="form-control" formControlName="precio">
+      			</article>
+      		</section>
+          <section class="clearfix mt-3" [ngClass]="{'row':!isMobileSize(),'col':windowWidth>=769}">
+      			<label class="col-form-label text-right text-success" [ngClass]="{'col-sm-6':isMobileSize(), 'col-sm-4': !isMobileSize()}">
+      				<strong>Existencia:</strong>
+      			</label>
+      			<article [ngClass]="{'col-sm-12': isMobileSize(),'col-sm-8': !isMobileSize()}">
+              <input type="text" class="form-control" formControlName="existencia">
+      			</article>
+      		</section>
+        </section>
+      </div>
+    </div>
+    <div class="text-right">
+      <button type="button" class="btn btn-success mr-3" [routerLink]="['../']">Cancelar</button>
+      <input type="submit" role="button" class="btn btn-success" value="Guardar">
+    </div>
+  </form>
+</section>
+
+<br><br>

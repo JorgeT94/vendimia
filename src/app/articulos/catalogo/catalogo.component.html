@@ -1,0 +1,33 @@
+<section class="encabezado animated fadeIn">
+	<br>
+	<strong><h5>Artículos Registrados</h5></strong>
+	<hr>
+</section>
+<section class="contenedor animated fadeIn fast">
+	<section style="margin-bottom: 5px;">
+		<article class="derecha">
+			<button type="button" class="btn btn-primary" [ngClass]="{'btn-sm': isMobileSize()}" routerLink="registrar">
+				<i class="fa fa-plus fa-lg" aria-hidden="true"></i>
+				<span class="btnNuevo">Nuevo Artículo</span>
+			</button>
+		</article>
+	</section>
+	<article class="table-responsive">
+		<table class="table table-hover table-sm">
+			<thead class="btn-primary disabled">
+				<tr>
+					<th>Clave Artículo</th>
+					<th>Descripción</th>
+          <th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let a of (articulos | keys); let i=index">
+					<th scope="row">{{ articulos[a].idArticulo }}</th>
+					<td>{{ articulos[a].descripcion }}</td>
+          <td><i class="fa fa-edit" [routerLink]="[a]"></i></td>
+				</tr>
+			</tbody>
+		</table>
+	</article>
+</section>
